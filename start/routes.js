@@ -26,4 +26,8 @@ Route.get('files/:id', 'FileController.show')
 
 Route.group(() => {
   Route.post('files', 'FileController.store')
+
+  Route.resource('categories', 'CategoryController')
+    .validator(new Map([[['categories.store', 'categories.update'], ['Category']]]))
+    .apiOnly()
 }).middleware('auth')
