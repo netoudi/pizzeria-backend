@@ -38,4 +38,8 @@ Route.group(() => {
   Route.resource('variants', 'ProductVariantController')
     .validator(new Map([[['variants.store', 'variants.update'], ['ProductVariant']]]))
     .apiOnly()
+
+  Route.resource('orders', 'OrderController')
+    .validator(new Map([[['orders.store', 'orders.update'], ['Order']]]))
+    .apiOnly()
 }).middleware('auth')
