@@ -52,6 +52,8 @@ class CategoryController {
   async show ({ params, request, response, view }) {
     const category = await Category.findByOrFail('id', params.id)
 
+    await category.load('products')
+
     return category
   }
 

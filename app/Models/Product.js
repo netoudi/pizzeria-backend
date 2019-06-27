@@ -16,6 +16,10 @@ class Product extends Model {
   category () {
     return this.belongsTo('App/Models/Category')
   }
+
+  variants () {
+    return this.hasMany('App/Models/ProductVariant')
+  }
 }
 
 module.exports = Product

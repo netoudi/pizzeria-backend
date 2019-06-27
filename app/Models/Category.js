@@ -12,6 +12,10 @@ class Category extends Model {
   getImageUrl ({ image }) {
     return `${Env.get('APP_URL')}/files/${image}`
   }
+
+  products () {
+    return this.hasMany('App/Models/Product')
+  }
 }
 
 module.exports = Category
