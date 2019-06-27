@@ -20,6 +20,8 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
+Route.post('signup', 'Auth/SignUpController.store').validator('SignUp')
+Route.post('signin', 'Auth/SignInController.store').validator('SignIn')
 Route.post('sessions', 'SessionController.store').validator('Session')
 
 Route.get('files/:id', 'FileController.show')
