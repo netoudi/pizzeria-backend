@@ -8,8 +8,8 @@ class OrderItem extends Model {
     return this.belongsTo('App/Models/Order')
   }
 
-  productVariant () {
-    return this.hasOne('App/Models/ProductVariant')
+  variant () {
+    return this.hasOne('App/Models/ProductVariant', 'variant_id', 'id')
   }
 }
 

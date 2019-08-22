@@ -52,6 +52,8 @@ class ProductVariantController {
   async show ({ params, request, response, view }) {
     const variant = await ProductVariant.findByOrFail('id', params.id)
 
+    await variant.load('product')
+
     return variant
   }
 

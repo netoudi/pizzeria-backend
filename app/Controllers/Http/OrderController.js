@@ -22,14 +22,16 @@ class OrderController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ request, response, view, auth }) {
     const orders = await Order.query()
+      .where('user_id', auth.user.id)
       .with('user')
-      .with('items')
+      .with('items.variant.product')
       .with('address')
-      .fetch()
+      .orderBy('created_at', 'desc')
+      .paginate(1, 10)
 
-    return orders
+    return orders.toJSON().data
   }
 
   /**
@@ -68,7 +70,9 @@ class OrderController {
 
     const userId = auth.user.id
     const numberItems = orderItems.length
-    const valueTotal = orderItems.reduce((acc, curr) => acc + curr.value_total, 0)
+    const valueTotal = parseFloat(
+      orderItems.reduce((acc, curr) => acc + curr.value_total, 0).toFixed(2)
+    )
 
     // Check order is valid
     if (!isValidItems || data.number_items !== numberItems || data.value_total !== valueTotal) {
